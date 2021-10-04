@@ -18,6 +18,15 @@ async function start() {
   let minNum = 0;
   let firstGuess = 50;
 
+  //This function returns a random number between 2 given integers.
+
+  function randoNum(higher, lower) {
+    let range = higher - lower + 1;
+    return Math.floor(Math.random() * range) + lower;
+  }
+
+  //This function returns the median of 2 given integers.
+
   function guessNum(max, min) {
     return Math.floor((max - min) / 2 + min);
   }
@@ -34,33 +43,41 @@ async function start() {
   );
   let compGuess = await ask(`Is your number ${firstGuess}?\n>_ `);
 
-  // I made the first guess 50 so it is easier to narrow down the guess range
+  // I made the first guess 50 so it is easier to narrow down the guess range.
 
   if (compGuess === "yes") {
-    console.log("Ha! Too easy! Thanks for playing.");
+    console.log("Ha, Too easy! Thanks for playing!");
     process.exit();
 
-    //The code above only triggers if 50 is the persons guess.
+    //The code above only triggers if 50 is the players guess.
   } else {
     //The code below triggers if the computers guess is not correct.
 
-    while (compGuess === "no") {
+    while (compGuess !== "yes") {
       let highLow = await ask("Higher or Lower?\n>_ ");
       if (highLow === "higher") {
         minNum = firstGuess + 1;
-        maxNum = maxNum - 1;
 
-        // The guessNum function returns a random number between the given min and max
+        // The guessNum function returns the median number between the given min and max.
 
-        console.log(guessNum(minNum, maxNum));
+        console.log(minNum);
 
-        //The console.log checks if the function adjusts the max & min number
+        //The console.logs above checks if the adjustments for the max & min updated.
 
         compGuess = await ask(
           `Is your number ${guessNum(minNum, maxNum)}?\n>_ `
         );
+        if (compGuess === "no") {
+          highLow === (await ask("Higher or Lower?\n>_ "));
+
+          //Trying to trigger lower code.
+        } else if (highLow === "lower") {
+          maxNum = firstGuess - 1;
+          compGuess = await ask(
+            `Is your number ${guessNum(minNum, maxNum)}?\n>_ `
+          );
+        }
       }
     }
-    while (highLow === "lower") {}
   }
 }
