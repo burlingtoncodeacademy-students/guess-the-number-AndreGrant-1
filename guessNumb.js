@@ -39,46 +39,31 @@ async function start() {
     "What is your secret number?\nI won't peek, I promise...\n>_ "
   );
   console.log(
-    `You entered: ${secretNumber}.\nNo worries! this is just so i know you aren't cheating ;) .`
+    `You entered: ${secretNumber}.\nNo worries! this is just so i know you aren't cheating ;).
+    Please use: yes, no, higher, and lower to play this game. (Lowercase) `
   );
   let compGuess = await ask(`Is your number ${firstGuess}?\n>_ `);
 
   // I made the first guess 50 so it is easier to narrow down the guess range.
 
-  if (compGuess === "yes") {
-    console.log("Ha, Too easy! Thanks for playing!");
-    process.exit();
+  // if (compGuess === "yes") {
+  //   console.log("Ha, Too easy! Thanks for playing!");
+  //   process.exit();
 
-    //The code above only triggers if 50 is the players guess.
-  } else {
-    //The code below triggers if the computers guess is not correct.
+  //The code above only triggers if 50 is the players guess.
 
-    while (compGuess !== "yes") {
-      let highLow = await ask("Higher or Lower?\n>_ ");
-      if (highLow === "higher") {
-        minNum = firstGuess + 1;
+  //The code below triggers if the computers guess is not correct.
 
-        // The guessNum function returns the median number between the given min and max.
-
-        console.log(minNum);
-
-        //The console.logs above checks if the adjustments for the max & min updated.
-
-        compGuess = await ask(
-          `Is your number ${guessNum(minNum, maxNum)}?\n>_ `
-        );
-        if (compGuess === "no") {
-          highLow === (await ask("Higher or Lower?\n>_ "));
-
-          //Trying to trigger lower code.
-        } else if (highLow === "lower") {
-          maxNum = firstGuess - 1;
-          compGuess = await ask(
-            `Is your number ${guessNum(minNum, maxNum)}?\n>_ `
-          );
-        }
-      }
+  while (compGuess !== "yes") {
+    let highLow = await ask("Higher or Lower?\n>_ ");
+    if (highLow === "higher") {
+      minNum = firstGuess + 1; //Trying to trigger lower code.
+      console.log(`minNum should be 51 and it is ${minNum}`);
+    } else if (highLow === "lower") {
+      maxNum = firstGuess - 1;
+      console.log(`maxNum should be 49 and it is ${maxNum}`);
+      compGuess = await ask(`Is your number ${guessNum(minNum, maxNum)}?\n>_ `);
     }
+    compGuess = await ask(`Is your number ${guessNum(minNum, maxNum)}`);
   }
 }
-//Still working on project.

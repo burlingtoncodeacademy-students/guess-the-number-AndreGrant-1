@@ -3,15 +3,15 @@ function randoNum(higher, lower) {
   return Math.floor(Math.random() * range) + lower;
 }
 
-function getHalf(max, min) {
-  return Math.floor((max - min) / 2 + min);
-}
+// function getHalf(max, min) {
+//   return Math.floor((max - min) / 2 + min);
+// }
 
-console.log(getHalf(1, 100));
-console.log(getHalf(50, 100));
-console.log(getHalf(75, 100));
-console.log(getHalf(1, 50));
-console.log(getHalf(25, 50));
+// console.log(getHalf(1, 100));
+// console.log(getHalf(50, 100));
+// console.log(getHalf(75, 100));
+// console.log(getHalf(1, 50));
+// console.log(getHalf(25, 50));
 
 // let minNum = 1;
 // let maxNum = 100;
