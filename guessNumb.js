@@ -17,7 +17,6 @@ async function guessGame() {
   //Setting initial variables, leaving max number open for user input
   let minNum = 1;
   let yesOrNo;
-  // let playAgain;
 
   console.log(
     "Let's play a game! You pick a number for the max and I have to guess what it is! "
@@ -33,7 +32,7 @@ async function guessGame() {
     "What is your secret number?\nI won't peek, I promise...\n>_ "
   );
 
-  //sanitization, tells players the only acceptable inputs for gameplay
+  //lazy sanitization, tells players the only acceptable inputs for gameplay, needs proper sanitization
   console.log(
     `You entered: ${secretNumber}.\nNo worries! this is just so i know you aren't cheating ;).
     Please use: yes, no, higher, and lower to play this game.(Lowercase) `
@@ -45,11 +44,13 @@ async function guessGame() {
   }
 
   let guess = rangeFinder(maxNum, minNum);
+  //numOfTries variable to initate guess counter icebox
   let numOfTries = 1;
   //while loop that runs until the comp guesses the right number
   while (yesOrNo !== "yes") {
     yesOrNo = await ask(`Is your number ${guess}?\n>_ `);
     if (yesOrNo === "yes") {
+      //intro new variable for play replay story also tells player how many guess it took the comp to guess their number
       let playAgain = await ask(
         `Ha! Too easy, it only took me ${numOfTries} guess(es)! Want to go again?\n>_ `
       );
@@ -57,6 +58,7 @@ async function guessGame() {
         console.log("Thanks for playing!");
         process.exit();
       } else if (playAgain === "yes") {
+        //loops back to the start of the function
         `Yay! ${guessGame()}`;
       }
     }
@@ -66,6 +68,7 @@ async function guessGame() {
     //loop that adjusts the min and max with each incorrect guess
     if (highLow === "higher") {
       minNum = guess + 1;
+      //with every higher or lower guess, the num of tries counter goes up by 1
       numOfTries = numOfTries + 1;
       guess = rangeFinder(maxNum, minNum);
     } else if (highLow === "lower") {
