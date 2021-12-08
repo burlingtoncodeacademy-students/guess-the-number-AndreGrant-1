@@ -14,9 +14,17 @@ function ask(questionText) {
 start();
 
 async function start() {
-  //set comps answer
-  let rightAnswer = 25;
+  //function retuns random number each game
 
+  let minNum = 1;
+  let maxNum = 50;
+
+  function randoNum(maxNum, minNum) {
+    return Math.floor(Math.random() * (maxNum - minNum) + minNum);
+  }
+
+  let rightAnswer = randoNum(maxNum, minNum);
+  console.log(rightAnswer);
   let playerGuess = await ask(
     "I'm thinking of a number 1-50. What do you think the number is?\n>_ "
   );
